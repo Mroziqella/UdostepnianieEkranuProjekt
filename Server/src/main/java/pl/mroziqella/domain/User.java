@@ -3,7 +3,6 @@ package pl.mroziqella.domain;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -53,8 +52,9 @@ public class User {
         return login;
     }
 
-    public void setLogin(String login) {
+    public User setLogin(String login) {
         this.login = login;
+        return null;
     }
 
 

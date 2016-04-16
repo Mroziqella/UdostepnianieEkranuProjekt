@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.mroziqella.GUI.Controller">
+   <top>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="32.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <Pane style="-fx-background-color: #5c5461;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="connectButton" layoutX="119.0" layoutY="168.0" mnemonicParsing="false" text="Połącz" />
+            <TextField fx:id="login" layoutX="57.0" layoutY="70.0" />
+            <TextField fx:id="password" layoutX="57.0" layoutY="123.0" />
+            <RadioButton id="HightRadio" layoutX="366.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="Wysoka" />
+            <RadioButton id="NormalRadio" layoutX="366.0" layoutY="102.0" mnemonicParsing="false" text="Średnia" />
+            <RadioButton id="LowRadio" layoutX="366.0" layoutY="143.0" mnemonicParsing="false" text="Niska" />
+            <Label layoutX="57.0" layoutY="49.0" text="Login lub kod" />
+            <Label layoutX="54.0" layoutY="101.0" text="Hasło" />
+            <Label fx:id="display" layoutX="99.0" layoutY="233.0" prefHeight="21.0" prefWidth="98.0" text="Niepodłączny" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

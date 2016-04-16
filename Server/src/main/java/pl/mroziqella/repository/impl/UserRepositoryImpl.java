@@ -8,13 +8,17 @@ import pl.mroziqella.repository.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Kamil on 25/03/2016.
  */
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
+
+
+
 
 
     @Override
@@ -32,7 +36,6 @@ public class UserRepositoryImpl implements UserRepository {
             return false;
         }
 
-
         entityManager.close();
         entityManagerFactory.close();
 
@@ -40,10 +43,6 @@ public class UserRepositoryImpl implements UserRepository {
 
         return true;
 
-    }
-    @Override
-    public List<User> userList() {
-        return null;
     }
 
 }

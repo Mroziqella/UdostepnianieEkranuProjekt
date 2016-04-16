@@ -24,30 +24,27 @@
 
 
         function wyswietl(){
-            //arrayBufferToBase64(array);
-            var image;
             var req = new XMLHttpRequest();
-            req.open('GET', '/image/user', true); /* Argument trzeci, wartość true, określa, że żądanie ma być asynchroniczne */
+            req.open('GET', '/image/picture/${user}', true); /* Argument trzeci, wartość true, określa, że żądanie ma być asynchroniczne */
             req.onreadystatechange = function (aEvt) {
                 nowyImage.src="data:image/jpg;base64,"+req.responseText;
                 document.getElementById("ItemPreview").src = nowyImage.src;
 
             };
+            if(nowyImage.src=="data:image/jpg;base64,error"){
+                location.reload();
+                return;
+            }
+
             req.send(null);
-            /*
-            document.getElementById("ItemPreview").src = "data:image/jpg;base64,"+http.get('/image/user');
-            document.getElementById("diw").innerHTML = http.get('/image/user');*/
-
-        ;
 
 
-            binary='';
-            setTimeout(wyswietl, 500);
+            setTimeout(wyswietl, 1000);
         }
     </script>
 </head>
 <body onload="wyswietl()">
-<img id="ItemPreview" src="" height="50%" />
+<img id="ItemPreview" src="" height="80%" />
 <div id="diw"></div>
 </body>
 </html>

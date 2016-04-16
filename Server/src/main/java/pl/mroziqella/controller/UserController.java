@@ -41,7 +41,7 @@ public class UserController {
             return "registerPage";
         }
         if(!user.save(newUser)){
-            result.reject("login", messageSource.getMessage("validation.register.login.label",null,locale));
+            result.reject("login", messageSource.getMessage("validation.register.loginRepeat.label",null,locale));
         }
         if (result.hasErrors()) {
             return "registerPage";

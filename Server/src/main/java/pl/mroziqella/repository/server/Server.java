@@ -3,8 +3,13 @@ package pl.mroziqella.repository.server;
 
 import org.springframework.stereotype.Service;
 import pl.mroziqella.domain.Image;
+import pl.mroziqella.domain.User;
+import pl.mroziqella.exception.ImageNotFound;
 import pl.mroziqella.inte.SharingPicture;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -21,12 +26,14 @@ import java.util.logging.Logger;
  */
 @Service
 public class Server extends UnicastRemoteObject implements SharingPicture {
-    private static Map<String,Image> imageData = new HashMap<String, Image>();
+
+    public static Map<String, Image> imageData = new HashMap<String, Image>();
+    private Map<String, User> users = new HashMap<>();
 
     public Server() throws RemoteException {
         super();
-
     }
+
     /**
      * @param args the command line arguments
      */
@@ -49,9 +56,6 @@ public class Server extends UnicastRemoteObject implements SharingPicture {
         }
     }
 
-    public static Map<String, Image> getImageData() {
-        return imageData;
-    }
 
     @Override
     public String getTest() throws RemoteException {
@@ -60,19 +64,41 @@ public class Server extends UnicastRemoteObject implements SharingPicture {
 
     @Override
     public void writeImageToServer(byte[] image, String login) throws RemoteException {
-        if(imageData.containsKey(login)) {
-            imageData.put(login, new Image(Calendar.getInstance(), image));
-        }
+        imageData.put(login, new Image(Calendar.getInstance(), image));
     }
 
     @Override
     public byte[] readImageFromServer(String login) throws RemoteException {
-        return imageData.get(login).getImage();
+        try {
+            return imageData.get(login).getImage();
+        } catch (NullPointerException e) {
+            throw new ImageNotFound();
+        }
+
     }
 
     @Override
-    public boolean loginUser(String login) throws RemoteException {
-        imageData.put(login,null);
-        return true;
+    public boolean isUser(String login, String password) throws RemoteException {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myDatabase");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+
+        User user = (User) entityManager.find(User.class, login);
+        try {
+            entityManager.getTransaction().commit();
+        } catch (javax.persistence.RollbackException e) {
+            return false;
+        }
+
+        entityManager.close();
+        entityManagerFactory.close();
+        if (user != null && user.getPassword().equals(password)) {
+            imageData.put(login, null);
+            return true;
+        }
+
+        return false;
     }
 }

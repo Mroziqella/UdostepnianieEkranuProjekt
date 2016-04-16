@@ -1,25 +1,25 @@
 package pl.mroziqella.impl;
 
-import pl.mroziqella.inte.SharingPicture;
 import pl.mroziqella.impl.Application.ImageScreenShot;
+import pl.mroziqella.inte.SharingPicture;
 
 import java.awt.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * lab3
-  * Created by Kamil on 21/03/2016.
+ * Created by Kamil on 21/03/2016.
  */
-public class Provider {
+public class Provider implements Runnable{
 
     private String address = null, nameServer = null;
     private int port = 0;
     private SharingPicture rmi;
+    ImageScreenShot imageScreenShot;
+    private String login;
 
     public Provider(String address, String nameServer, int port) {
         this.address = address;
@@ -27,32 +27,40 @@ public class Provider {
         this.port = port;
     }
 
-    /**
-     * @param args
-     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-    public static void main(String[] args) {
-        Provider provider = new Provider("127.0.0.1", "server", 2000);
-        String test;
-
+    @Override
+    public void run() {
         try {
-            provider.connect();
-            test = provider.getRmi().getTest();
-            if (test.equals("Test"))
-                System.out.println("TEST: Completed");
-            else
-                System.out.println("TEST: Failed");
-
-            ImageScreenShot imageScreenShot = new ImageScreenShot(provider.getRmi());
-            imageScreenShot.run();
-
-
-        } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(Provider.class.getName()).log(Level.SEVERE, null, ex);
+            start(login);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
         } catch (AWTException e) {
             e.printStackTrace();
         }
     }
+
+    public void start(String login) throws RemoteException, NotBoundException, AWTException {
+        String test;
+        this.connect();
+        test = this.getRmi().getTest();
+        if (test.equals("Test"))
+            System.out.println("TEST: Completed");
+        else
+            System.out.println("TEST: Failed");
+
+        imageScreenShot = new ImageScreenShot(this.getRmi(),login);
+        imageScreenShot.run();
+
+    }
+    public void stop(){
+        imageScreenShot.screenRunStop();
+    }
+
 
     /**
      * @throws RemoteException

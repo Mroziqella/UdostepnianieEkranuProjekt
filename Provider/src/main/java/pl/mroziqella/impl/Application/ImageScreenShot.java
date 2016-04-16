@@ -33,18 +33,20 @@ public class ImageScreenShot implements Runnable {
     private boolean screenRun;
     private int qualityProcent = 100;
     private SharingPicture rmi;
+    private String login;
 
     /**
      * Tworzy obiekt robiacy i zrzuty ekranu
      *
      * @throws AWTException
      */
-    public ImageScreenShot(SharingPicture rmi) throws AWTException {
+    public ImageScreenShot(SharingPicture rmi,String login) throws AWTException {
         dimension = Toolkit.getDefaultToolkit().getScreenSize();
         rectangle = new Rectangle(dimension);
         robot = new Robot();
         screenRun = false;
         this.rmi = rmi;
+        this.login=login;
     }
 
     /**
@@ -95,17 +97,10 @@ public class ImageScreenShot implements Runnable {
     @Override
     public void run() {
         screenRun = true;
-        try {
-            if(rmi.loginUser("user")){
-                System.out.println("Zalogowano!");
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
         while (screenRun) {
             this.screenCapture();
             try {
-                rmi.writeImageToServer(imageByteArray,"user");
+                rmi.writeImageToServer(imageByteArray,login);
                 Thread.sleep(1000);
             } catch (RemoteException e) {
                 e.printStackTrace();
