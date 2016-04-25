@@ -32,6 +32,7 @@ public class ImageScreenShot implements Runnable {
     private BufferedImage screen;
     private boolean screenRun;
     private int qualityProcent = 100;
+    private double zoom=1;
     private SharingPicture rmi;
     private String login;
 
@@ -47,6 +48,10 @@ public class ImageScreenShot implements Runnable {
         screenRun = false;
         this.rmi = rmi;
         this.login=login;
+    }
+
+    public double getZoom() {
+        return zoom;
     }
 
     /**
@@ -70,6 +75,7 @@ public class ImageScreenShot implements Runnable {
      */
     public void setQuality(int qualityProcent) {
         this.qualityProcent = qualityProcent;
+        zoom=100.0/qualityProcent;
     }
 
     /**
@@ -100,7 +106,7 @@ public class ImageScreenShot implements Runnable {
         while (screenRun) {
             this.screenCapture();
             try {
-                rmi.writeImageToServer(imageByteArray,login);
+                rmi.writeImageToServer(imageByteArray,zoom,login);
                 Thread.sleep(1000);
             } catch (RemoteException e) {
                 e.printStackTrace();

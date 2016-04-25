@@ -11,6 +11,7 @@ import pl.mroziqella.exception.ConnectExeception;
 import pl.mroziqella.exception.ImageNotFound;
 import pl.mroziqella.inte.SharingPicture;
 import pl.mroziqella.repository.server.Server;
+import pl.mroziqella.service.ShareService;
 
 import java.rmi.RemoteException;
 
@@ -19,8 +20,9 @@ import java.rmi.RemoteException;
  */
 @Controller
 public class IndexController {
+
     @Autowired
-    private SharingPicture sharingPicture;
+    private ShareService shareService;
 
     public IndexController() {
         try {
@@ -44,11 +46,6 @@ public class IndexController {
 
     @RequestMapping("/image/{user}")
     public String image(@PathVariable String user, Model model) {
-        try {
-            sharingPicture.readImageFromServer(user);
-        } catch (RemoteException e) {
-            throw new ConnectExeception("Błąd Połączenia");
-        }
         model.addAttribute("user", user);
         return "displayImage";
     }
@@ -56,10 +53,9 @@ public class IndexController {
 
     @RequestMapping(value = "/image/picture/{user}", method = RequestMethod.GET)
     public @ResponseBody String getImage(@PathVariable String user) {
-        System.out.println(Server.imageData.containsKey(user));
         try {
-            return new String(sharingPicture.readImageFromServer(user));
-        } catch (RemoteException|ImageNotFound e) {
+            return new String(shareService.getImageBase64(user));
+        } catch (ImageNotFound e) {
             return new String("error");
         }
     }

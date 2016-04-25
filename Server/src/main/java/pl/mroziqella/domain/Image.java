@@ -2,24 +2,35 @@ package pl.mroziqella.domain;
 
 import java.util.Base64;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Kamil on 29/03/2016.
  */
-public class Image  {
+public class Image {
 
     private byte[] image;
+    private byte[] imageBase64;
+    private double zoom;
     private Calendar time;
 
-    public Image(Calendar time, byte[] image) {
+    public Image(Calendar time, byte[] image, byte[] imageBase64, double zoom) {
         this.time = time;
         this.image = image;
+        this.imageBase64 = imageBase64;
+        this.zoom = zoom;
+    }
+
+    public byte[] getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(byte[] imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 
     public byte[] getImage() {
-        byte[] encoded = Base64.getEncoder().encode(image);
-        return encoded;
+        //byte[] encoded = Base64.getEncoder().encode(image);
+        return image;
     }
 
 

@@ -2,6 +2,7 @@ package pl.mroziqella.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.mroziqella.exception.ImageNotFound;
 import pl.mroziqella.inte.SharingPicture;
 import pl.mroziqella.repository.server.Server;
 import pl.mroziqella.service.ShareService;
@@ -20,13 +21,14 @@ import java.util.Base64;
 public class ShareServiceImpl implements ShareService{
     @Autowired
     private SharingPicture sharingPicture;
+
     @Override
-    public byte[] getImage(String login) {
+    public byte[] getImageBase64(String login) {
         try {
-            return  Base64.getEncoder().encode(sharingPicture.readImageFromServer(login));
-        } catch (RemoteException e) {
-            e.printStackTrace();
+            return sharingPicture.readImageFromServerBase64(login);
+        } catch (NullPointerException| ImageNotFound|RemoteException e) {
+            throw new ImageNotFound();
         }
-        return null;
+
     }
 }

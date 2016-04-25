@@ -36,9 +36,12 @@
             <Button fx:id="connectButton" layoutX="119.0" layoutY="168.0" mnemonicParsing="false" text="Połącz" />
             <TextField fx:id="login" layoutX="57.0" layoutY="70.0" />
             <TextField fx:id="password" layoutX="57.0" layoutY="123.0" />
-            <RadioButton id="HightRadio" layoutX="366.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="Wysoka" />
-            <RadioButton id="NormalRadio" layoutX="366.0" layoutY="102.0" mnemonicParsing="false" text="Średnia" />
-            <RadioButton id="LowRadio" layoutX="366.0" layoutY="143.0" mnemonicParsing="false" text="Niska" />
+            <RadioButton id="HightRadio" fx:id="radioButtonHeight" layoutX="366.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="Wysoka">
+               <toggleGroup>
+                  <ToggleGroup fx:id="quality" />
+               </toggleGroup></RadioButton>
+            <RadioButton id="NormalRadio" fx:id="radioButtonNormal" layoutX="366.0" layoutY="102.0" mnemonicParsing="false" text="Średnia" toggleGroup="$quality" />
+            <RadioButton id="LowRadio" fx:id="radioButtonLow" layoutX="366.0" layoutY="143.0" mnemonicParsing="false" text="Niska" toggleGroup="$quality" />
             <Label layoutX="57.0" layoutY="49.0" text="Login lub kod" />
             <Label layoutX="54.0" layoutY="101.0" text="Hasło" />
             <Label fx:id="display" layoutX="99.0" layoutY="233.0" prefHeight="21.0" prefWidth="98.0" text="Niepodłączny" />

@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  * @author Kamil
  */
 @Service
-public class Server extends UnicastRemoteObject implements SharingPicture {
+public class Server extends UnicastRemoteObject implements SharingPicture{
 
     public static Map<String, Image> imageData = new HashMap<String, Image>();
     private Map<String, User> users = new HashMap<>();
@@ -63,8 +64,9 @@ public class Server extends UnicastRemoteObject implements SharingPicture {
     }
 
     @Override
-    public void writeImageToServer(byte[] image, String login) throws RemoteException {
-        imageData.put(login, new Image(Calendar.getInstance(), image));
+    public void writeImageToServer(byte[] image,double zoom, String login) throws RemoteException {
+        byte[] imageBase64=Base64.getEncoder().encode(image);
+        imageData.put(login, new Image(Calendar.getInstance(),image, imageBase64,zoom));
     }
 
     @Override
@@ -74,7 +76,15 @@ public class Server extends UnicastRemoteObject implements SharingPicture {
         } catch (NullPointerException e) {
             throw new ImageNotFound();
         }
+    }
 
+    @Override
+    public byte[] readImageFromServerBase64(String login) throws RemoteException {
+        try {
+            return imageData.get(login).getImageBase64();
+        } catch (NullPointerException e) {
+            throw new ImageNotFound();
+        }
     }
 
     @Override
@@ -101,4 +111,6 @@ public class Server extends UnicastRemoteObject implements SharingPicture {
 
         return false;
     }
+
+
 }

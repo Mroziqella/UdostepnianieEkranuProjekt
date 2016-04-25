@@ -18,7 +18,7 @@ public class Provider implements Runnable{
     private String address = null, nameServer = null;
     private int port = 0;
     private SharingPicture rmi;
-    ImageScreenShot imageScreenShot;
+    private ImageScreenShot imageScreenShot;
     private String login;
 
     public Provider(String address, String nameServer, int port) {
@@ -26,6 +26,11 @@ public class Provider implements Runnable{
         this.nameServer = nameServer;
         this.port = port;
     }
+
+    public ImageScreenShot getImageScreenShot() {
+        return imageScreenShot;
+    }
+
 
     public void setLogin(String login) {
         this.login = login;
