@@ -12,6 +12,8 @@
 		<module>Server</module>
 		<module>Provider</module>
         <module>Interface</module>
+        <module>Client</module>
+        <module>Client</module>
     </modules>
 
 

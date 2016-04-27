@@ -1,6 +1,8 @@
 package pl.mroziqella.repository.server;
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import pl.mroziqella.domain.Image;
 import pl.mroziqella.domain.User;
@@ -72,6 +74,7 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
     @Override
     public byte[] readImageFromServer(String login) throws RemoteException {
         try {
+            Logger.getLogger("fsdf").info("==========================================/n/n/n/n");
             return imageData.get(login).getImage();
         } catch (NullPointerException e) {
             throw new ImageNotFound();
