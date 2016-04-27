@@ -34,6 +34,7 @@ public class ThreadImage extends ClientRMI implements Runnable {
     private int sizePictureProcent = 100;
     private int width;
     private int height;
+    private String login;
 
     /**
      *
@@ -42,11 +43,12 @@ public class ThreadImage extends ClientRMI implements Runnable {
      * @param port port na ktorym ma nasluchiwac aplikacja
      * @param dispaly JLabel na którym ma byc wyswietlany obraz
      */
-    public ThreadImage(String address, String nameServer, int port, ImageView dispaly) {
+    public ThreadImage(String address, String nameServer, int port, ImageView dispaly,String login) {
         super(address, nameServer, port);
         this.statusThread = true;
         this.dispaly = dispaly;
         this.quality = 100;
+        this.login = login;
 
     }
 
@@ -78,8 +80,8 @@ public class ThreadImage extends ClientRMI implements Runnable {
      * Uruchamia wątek odpowiedzialny za pobieranie obrazu
      */
     public void run() {
+        statusThread=true;
         while (statusThread) {
-
             downloandArrayImage();
         }
     }
@@ -90,7 +92,7 @@ public class ThreadImage extends ClientRMI implements Runnable {
     private void downloandArrayImage() {
         try {
             SharingPicture rmi = this.getRmi();
-            imageByteArray = rmi.readImageFromServer("kamil");
+            imageByteArray = rmi.readImageFromServer(login);
             //Logger.getLogger(getClass().getName()).info(Arrays.toString(imageByteArray));
             convertArrayToImage();
         } catch (RemoteException ex) {
