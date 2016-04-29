@@ -91,6 +91,7 @@ public class Controller implements Initializable {
                         provider.setLogin(login.getText());
                         new Thread(provider).start();
                         connectButton.setText("Zatrzymaj");
+
                     } else {
                         connectButton.setText("Połącz");
                         display.setText("Niepołączono");
@@ -101,6 +102,7 @@ public class Controller implements Initializable {
                 }
             } catch (RemoteException e) {
                 e.printStackTrace();
+
             }
         }
 

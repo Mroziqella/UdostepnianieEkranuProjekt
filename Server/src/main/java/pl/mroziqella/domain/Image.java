@@ -1,5 +1,7 @@
 package pl.mroziqella.domain;
 
+import pl.mroziqella.inte.MouseInfo;
+
 import java.util.Base64;
 import java.util.Calendar;
 

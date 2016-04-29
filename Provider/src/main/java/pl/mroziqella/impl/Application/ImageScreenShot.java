@@ -5,7 +5,8 @@
  */
 package pl.mroziqella.impl.Application;
 
-import pl.mroziqella.inte.SharingPicture;
+import pl.mroziqella.inte.*;
+import pl.mroziqella.inte.MouseInfo;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -50,9 +51,6 @@ public class ImageScreenShot implements Runnable {
         this.login=login;
     }
 
-    public double getZoom() {
-        return zoom;
-    }
 
     /**
      * Robienie zrzutow uruchomione
@@ -116,6 +114,7 @@ public class ImageScreenShot implements Runnable {
 
 
         }
+
     }
 
     /**

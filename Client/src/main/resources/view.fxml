@@ -21,7 +21,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <ImageView fx:id="displayPanel" nodeOrientation="INHERIT" onMouseClicked="#clickOnImageView" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="displayPanel" nodeOrientation="INHERIT"  pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <viewport>
                               <Rectangle2D />
                            </viewport>

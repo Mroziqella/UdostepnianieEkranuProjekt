@@ -39,6 +39,7 @@ public class Client {
             else
                 System.out.println("TEST: Failed");
 
+
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,6 +1,7 @@
 package pl.mroziqella.impl;
 
 import pl.mroziqella.impl.Application.ImageScreenShot;
+import pl.mroziqella.impl.Application.Mouse;
 import pl.mroziqella.inte.SharingPicture;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class Provider implements Runnable{
     private int port = 0;
     private SharingPicture rmi;
     private ImageScreenShot imageScreenShot;
+    private Mouse mouse;
     private String login;
 
     public Provider(String address, String nameServer, int port) {
@@ -58,12 +60,16 @@ public class Provider implements Runnable{
         else
             System.out.println("TEST: Failed");
 
+
         imageScreenShot = new ImageScreenShot(this.getRmi(),login);
-        imageScreenShot.run();
+        new Thread(imageScreenShot).start();
+        mouse = new Mouse(login,getRmi());
+        new Thread(mouse).start();
 
     }
     public void stop(){
         imageScreenShot.screenRunStop();
+        mouse.mouseRunStop();
     }
 
 

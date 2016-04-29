@@ -35,6 +35,15 @@ public class ThreadImage extends ClientRMI implements Runnable {
     private int width;
     private int height;
     private String login;
+    private double zoom;
+
+    public double getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(double zoom) {
+        this.zoom = zoom;
+    }
 
     /**
      *
@@ -93,6 +102,7 @@ public class ThreadImage extends ClientRMI implements Runnable {
         try {
             SharingPicture rmi = this.getRmi();
             imageByteArray = rmi.readImageFromServer(login);
+
             //Logger.getLogger(getClass().getName()).info(Arrays.toString(imageByteArray));
             convertArrayToImage();
         } catch (RemoteException ex) {

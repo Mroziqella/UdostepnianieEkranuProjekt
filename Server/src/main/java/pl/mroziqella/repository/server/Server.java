@@ -1,12 +1,11 @@
 package pl.mroziqella.repository.server;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import pl.mroziqella.domain.Image;
 import pl.mroziqella.domain.User;
 import pl.mroziqella.exception.ImageNotFound;
+import pl.mroziqella.inte.MouseInfo;
 import pl.mroziqella.inte.SharingPicture;
 
 import javax.persistence.EntityManager;
@@ -31,6 +30,7 @@ import java.util.logging.Logger;
 public class Server extends UnicastRemoteObject implements SharingPicture{
 
     public static Map<String, Image> imageData = new HashMap<String, Image>();
+    public static Map<String, MouseInfo> mouseData = new HashMap<String, MouseInfo>();
     private Map<String, User> users = new HashMap<>();
 
     public Server() throws RemoteException {
@@ -66,6 +66,16 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
     }
 
     @Override
+    public MouseInfo getMouseClick(String login) throws RemoteException {
+        return mouseData.get(login);
+    }
+
+    @Override
+    public void setMouseClick(String login, MouseInfo mouseInfo) throws RemoteException {
+        mouseData.put(login,mouseInfo);
+    }
+
+    @Override
     public void writeImageToServer(byte[] image,double zoom, String login) throws RemoteException {
         byte[] imageBase64=Base64.getEncoder().encode(image);
         imageData.put(login, new Image(Calendar.getInstance(),image, imageBase64,zoom));
@@ -74,7 +84,6 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
     @Override
     public byte[] readImageFromServer(String login) throws RemoteException {
         try {
-            Logger.getLogger("fsdf").info("==========================================/n/n/n/n");
             return imageData.get(login).getImage();
         } catch (NullPointerException e) {
             throw new ImageNotFound();
@@ -109,11 +118,11 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
         entityManagerFactory.close();
         if (user != null && user.getPassword().equals(password)) {
             imageData.put(login, null);
+            mouseData.put(login,new MouseInfo());
             return true;
         }
 
         return false;
     }
-
 
 }

@@ -1,13 +1,18 @@
 package pl.mroziqella.GUI;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import pl.mroziqella.RMIConnect.ThreadImage;
+import pl.mroziqella.inte.MouseInfo;
 
 import java.net.URL;
 import java.rmi.NotBoundException;
@@ -33,6 +38,7 @@ public class Controller implements Initializable {
     @FXML
     private TextField passwordTextField;
 
+
     @FXML
     void connectButtonClick(ActionEvent event) {
         try {
@@ -47,10 +53,22 @@ public class Controller implements Initializable {
                     threadImage.start();
                     statusLabel.setText("Połączony");
                     connect.setText("Zatrzymaj");
+                    displayPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+
+                            try {
+                                clientRMI.getRmi().setMouseClick(loginTextField.getText(),new MouseInfo((int)event.getX(),(int)event.getY()));
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 } else {
                     clientRMI.stopThread();
                     statusLabel.setText("Niepołączony");
                     connect.setText("Połącz");
+                    displayPanel.setOnMouseClicked(null);
                 }
 
             } else {
@@ -63,10 +81,7 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    void clickOnImageView(ActionEvent event) {
 
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,5 +94,7 @@ public class Controller implements Initializable {
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
+
+
     }
 }
