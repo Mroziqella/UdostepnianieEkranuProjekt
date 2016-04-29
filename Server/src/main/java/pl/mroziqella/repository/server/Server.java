@@ -2,7 +2,7 @@ package pl.mroziqella.repository.server;
 
 
 import org.springframework.stereotype.Service;
-import pl.mroziqella.domain.Image;
+import pl.mroziqella.inte.Image;
 import pl.mroziqella.domain.User;
 import pl.mroziqella.exception.ImageNotFound;
 import pl.mroziqella.inte.MouseInfo;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 /**
  * @author Kamil
  */
-@Service
+
 public class Server extends UnicastRemoteObject implements SharingPicture{
 
     public static Map<String, Image> imageData = new HashMap<String, Image>();
@@ -76,15 +76,17 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
     }
 
     @Override
-    public void writeImageToServer(byte[] image,double zoom, String login) throws RemoteException {
-        byte[] imageBase64=Base64.getEncoder().encode(image);
-        imageData.put(login, new Image(Calendar.getInstance(),image, imageBase64,zoom));
+    public void writeImageToServer(Image image, String login) throws RemoteException {
+        byte[] imageBase64=Base64.getEncoder().encode(image.getImage());
+        image.setImageBase64(imageBase64);
+        image.setTime(Calendar.getInstance());
+        imageData.put(login, image);
     }
 
     @Override
-    public byte[] readImageFromServer(String login) throws RemoteException {
+    public Image readImageFromServer(String login) throws RemoteException {
         try {
-            return imageData.get(login).getImage();
+            return imageData.get(login);
         } catch (NullPointerException e) {
             throw new ImageNotFound();
         }

@@ -42,23 +42,30 @@ public class Controller implements Initializable {
     @FXML
     void connectButtonClick(ActionEvent event) {
         try {
-
+            clientRMI = new ThreadImage("127.0.0.1", "server", 2000, displayPanel, loginTextField.getText());
+            try {
+                clientRMI.connect();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (NotBoundException e) {
+                e.printStackTrace();
+            }
 
             if (clientRMI.getRmi().isUser(loginTextField.getText(), passwordTextField.getText())) {
                 Thread.sleep(2000);
 
                 if (!statusLabel.getText().equals("Połączony")) {
 
-                    Thread threadImage = new Thread(clientRMI);
+                    final Thread threadImage = new Thread(clientRMI);
                     threadImage.start();
                     statusLabel.setText("Połączony");
                     connect.setText("Zatrzymaj");
                     displayPanel.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-
                             try {
-                                clientRMI.getRmi().setMouseClick(loginTextField.getText(),new MouseInfo((int)event.getX(),(int)event.getY()));
+                                double zoom = clientRMI.getImage().getZoom();
+                                clientRMI.getRmi().setMouseClick(loginTextField.getText(),new MouseInfo((int)(event.getX()*zoom),(int)(event.getY()*zoom)));
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -86,14 +93,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        clientRMI = new ThreadImage("127.0.0.1", "server", 2000, displayPanel, loginTextField.getText());
-        try {
-            clientRMI.connect();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        }
+
 
 
     }

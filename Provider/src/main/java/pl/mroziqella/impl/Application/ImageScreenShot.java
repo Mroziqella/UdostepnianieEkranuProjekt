@@ -6,6 +6,7 @@
 package pl.mroziqella.impl.Application;
 
 import pl.mroziqella.inte.*;
+import pl.mroziqella.inte.Image;
 import pl.mroziqella.inte.MouseInfo;
 
 import javax.imageio.ImageIO;
@@ -36,6 +37,7 @@ public class ImageScreenShot implements Runnable {
     private double zoom=1;
     private SharingPicture rmi;
     private String login;
+    private Image image;
 
     /**
      * Tworzy obiekt robiacy i zrzuty ekranu
@@ -49,6 +51,7 @@ public class ImageScreenShot implements Runnable {
         screenRun = false;
         this.rmi = rmi;
         this.login=login;
+
     }
 
 
@@ -104,7 +107,8 @@ public class ImageScreenShot implements Runnable {
         while (screenRun) {
             this.screenCapture();
             try {
-                rmi.writeImageToServer(imageByteArray,zoom,login);
+
+                rmi.writeImageToServer(new Image(null,imageByteArray,null,zoom),login);
                 Thread.sleep(1000);
             } catch (RemoteException e) {
                 e.printStackTrace();

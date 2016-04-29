@@ -35,15 +35,7 @@ public class ThreadImage extends ClientRMI implements Runnable {
     private int width;
     private int height;
     private String login;
-    private double zoom;
-
-    public double getZoom() {
-        return zoom;
-    }
-
-    public void setZoom(double zoom) {
-        this.zoom = zoom;
-    }
+    private pl.mroziqella.inte.Image image;
 
     /**
      *
@@ -60,6 +52,12 @@ public class ThreadImage extends ClientRMI implements Runnable {
         this.login = login;
 
     }
+
+    public pl.mroziqella.inte.Image getImage() {
+        return image;
+    }
+
+
 
     /**
      * Ustawia wartości procentowe wielkości obrazu w celu jego późniejszego
@@ -101,7 +99,8 @@ public class ThreadImage extends ClientRMI implements Runnable {
     private void downloandArrayImage() {
         try {
             SharingPicture rmi = this.getRmi();
-            imageByteArray = rmi.readImageFromServer(login);
+            image = rmi.readImageFromServer(login);
+            imageByteArray = image.getImage();
 
             //Logger.getLogger(getClass().getName()).info(Arrays.toString(imageByteArray));
             convertArrayToImage();

@@ -7,6 +7,7 @@ import pl.mroziqella.inte.SharingPicture;
 import pl.mroziqella.repository.server.Server;
 import pl.mroziqella.service.ShareService;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Base64;
 
@@ -19,14 +20,13 @@ import java.util.Base64;
  */
 @Service
 public class ShareServiceImpl implements ShareService{
-    @Autowired
-    private SharingPicture sharingPicture;
+
 
     @Override
     public byte[] getImageBase64(String login) {
         try {
-            return sharingPicture.readImageFromServerBase64(login);
-        } catch (NullPointerException| ImageNotFound|RemoteException e) {
+            return Server.imageData.get(login).getImageBase64();
+        } catch (NullPointerException e) {
             throw new ImageNotFound();
         }
 

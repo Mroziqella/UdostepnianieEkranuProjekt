@@ -1,14 +1,15 @@
-package pl.mroziqella.domain;
+package pl.mroziqella.inte;
 
 import pl.mroziqella.inte.MouseInfo;
 
+import java.io.Serializable;
 import java.util.Base64;
 import java.util.Calendar;
 
 /**
  * Created by Kamil on 29/03/2016.
  */
-public class Image {
+public class Image implements Serializable {
 
     private byte[] image;
     private byte[] imageBase64;
@@ -46,5 +47,13 @@ public class Image {
 
     public void setTime(Calendar time) {
         this.time = time;
+    }
+
+    public double getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(double zoom) {
+        this.zoom = zoom;
     }
 }

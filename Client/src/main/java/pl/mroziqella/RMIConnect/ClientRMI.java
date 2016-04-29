@@ -53,7 +53,7 @@ public class ClientRMI {
         try {
             client.connect();
             test=client.getRmi().getTest();
-            Logger.getLogger(ClientRMI.class.getName()).info(Arrays.toString(client.getRmi().readImageFromServer("kamil")));
+            Logger.getLogger(ClientRMI.class.getName()).info(Arrays.toString(client.getRmi().readImageFromServer("kamil").getImage()));
             if (test.equals("Test"))
                 System.out.println("TEST: Completed");
             else
