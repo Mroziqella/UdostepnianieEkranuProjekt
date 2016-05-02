@@ -25,16 +25,18 @@ public class Mouse implements Runnable {
     private SharingPicture rmi;
     private String login;
     private MouseInfo mouseInfo;
+    private boolean shareMode;
 
     /**
      * 
      * @throws AWTException
      */
-    public Mouse(String login, SharingPicture rmi) throws AWTException {
+    public Mouse(String login,boolean shareMode, SharingPicture rmi) throws AWTException {
         this.login = login;
         this.rmi = rmi;
         robot = new Robot();
         robot.mouseMove(coordinatesX, coordinatesY);
+        this.shareMode = shareMode;
     }
 
     /** 
@@ -57,7 +59,7 @@ public class Mouse implements Runnable {
      * @param mouseKet
      */
     public void mouseClick(boolean status,int mouseKet) throws RemoteException {
-        if (status) {
+        if (status && shareMode) {
             robot.delay(100);
             robot.mouseMove(mouseInfo.getX(), mouseInfo.getY());
             robot.delay(20);
@@ -66,7 +68,9 @@ public class Mouse implements Runnable {
             robot.mouseRelease(mouseKet);
             mouseInfo.setClick(false);
             rmi.setMouseClick(login,mouseInfo);
+
         }
+
     }
     @Override
     public void run() {
@@ -81,5 +85,9 @@ public class Mouse implements Runnable {
 
         }
 
+    }
+
+    public void setShareMode(boolean shareMode) {
+        this.shareMode = shareMode;
     }
 }

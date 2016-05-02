@@ -42,6 +42,7 @@
                </toggleGroup></RadioButton>
             <RadioButton id="NormalRadio" fx:id="radioButtonNormal" layoutX="366.0" layoutY="102.0" mnemonicParsing="false" text="Średnia" toggleGroup="$quality" />
             <RadioButton id="LowRadio" fx:id="radioButtonLow" layoutX="366.0" layoutY="143.0" mnemonicParsing="false" text="Niska" toggleGroup="$quality" />
+             <CheckBox fx:id="checkBoxShareMode" layoutX="366.0" layoutY="199.0" mnemonicParsing="false" text="Tryb udostpniania" />
             <Label layoutX="57.0" layoutY="49.0" text="Login lub kod" />
             <Label layoutX="54.0" layoutY="101.0" text="Hasło" />
             <Label fx:id="display" layoutX="99.0" layoutY="233.0" prefHeight="21.0" prefWidth="98.0" text="Niepodłączny" />

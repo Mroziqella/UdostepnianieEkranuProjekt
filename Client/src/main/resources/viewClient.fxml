@@ -14,6 +14,9 @@
             <TextField fx:id="loginTextField" layoutX="8.0" layoutY="30.0" prefHeight="31.0" prefWidth="126.0" promptText="Podaj login" />
             <Label fx:id="statusLabel" layoutX="3.0" layoutY="180.0" text="Status: niepołączony" />
             <TextField fx:id="passwordTextField" layoutX="8.0" layoutY="72.0" prefHeight="31.0" prefWidth="126.0" promptText="Podaj hasło" />
+            <TextField fx:id="imageSizePercent" layoutX="14.0" layoutY="253.0" prefHeight="31.0" prefWidth="102.0" text="100" />
+            <Label layoutX="3.0" layoutY="232.0" text="Rozmiar obrazu w %" />
+            <Button fx:id="change" layoutX="34.0" layoutY="293.0" mnemonicParsing="false" onAction="#changeSize" text="Zmień" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="537.0">
          <children>

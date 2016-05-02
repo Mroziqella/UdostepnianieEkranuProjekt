@@ -58,6 +58,9 @@ public class ThreadImage extends ClientRMI implements Runnable {
     }
 
 
+    public int getSizePictureProcent() {
+        return sizePictureProcent;
+    }
 
     /**
      * Ustawia wartości procentowe wielkości obrazu w celu jego późniejszego

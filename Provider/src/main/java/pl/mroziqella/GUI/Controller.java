@@ -1,13 +1,12 @@
 package pl.mroziqella.GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.WindowEvent;
 import pl.mroziqella.impl.Provider;
 
@@ -33,6 +32,8 @@ public class Controller implements Initializable {
     private RadioButton radioButtonLow;
     @FXML
     private RadioButton radioButtonNormal;
+    @FXML
+    private CheckBox checkBoxShareMode;
 
     @Override
     public void initialize(final URL location, ResourceBundle resources) {
@@ -41,15 +42,36 @@ public class Controller implements Initializable {
         radioButtonHeight.setOnAction(new RadioButtonClickQuality(provider, 100));
         radioButtonNormal.setOnAction(new RadioButtonClickQuality(provider, 70));
         radioButtonLow.setOnAction(new RadioButtonClickQuality(provider, 30));
+        checkBoxShareMode.setOnAction(new CheckBoxShareClick(provider));
         Main.getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                provider.stop();
+                try {
+                    provider.stop();
+                } catch (NullPointerException e) {
 
-           }
+                }
+
+            }
         });
 
     }
+
+    private class CheckBoxShareClick implements EventHandler<ActionEvent>{
+        private Provider provider;
+        public CheckBoxShareClick(Provider provider) {
+            super();
+            this.provider = provider;
+        }
+
+        @Override
+        public void handle(ActionEvent event) {
+            provider.setShareMode(checkBoxShareMode.isSelected());
+
+
+        }
+    }
+
 
     private class RadioButtonClickQuality implements EventHandler<ActionEvent> {
         private int quality;

@@ -22,10 +22,12 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    private double imageSizeInPercent;
     private ThreadImage clientRMI;
     @FXML
     private ImageView displayPanel;
-
+    @FXML
+    private Button change;
     @FXML
     private Label statusLabel;
 
@@ -37,6 +39,8 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField passwordTextField;
+    @FXML
+    private  TextField imageSizePercent;
 
 
     @FXML
@@ -64,7 +68,7 @@ public class Controller implements Initializable {
                         @Override
                         public void handle(MouseEvent event) {
                             try {
-                                double zoom = clientRMI.getImage().getZoom();
+                                double zoom = clientRMI.getImage().getZoom()*imageSizeInPercent;
                                 clientRMI.getRmi().setMouseClick(loginTextField.getText(),new MouseInfo((int)(event.getX()*zoom),(int)(event.getY()*zoom)));
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -89,10 +93,20 @@ public class Controller implements Initializable {
     }
 
 
+    @FXML
+    void changeSize (ActionEvent event){
+        imageSizeInPercent = 100.0/Integer.parseInt(imageSizePercent.getText());
+        try {
+            clientRMI.setSizePictureProcent(Integer.parseInt(imageSizePercent.getText()));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        System.out.println("sdafasdf");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        imageSizeInPercent = 1;
 
 
 

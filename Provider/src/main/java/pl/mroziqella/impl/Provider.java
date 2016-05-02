@@ -22,6 +22,7 @@ public class Provider implements Runnable{
     private ImageScreenShot imageScreenShot;
     private Mouse mouse;
     private String login;
+    private boolean shareMode =false;
 
     public Provider(String address, String nameServer, int port) {
         this.address = address;
@@ -63,7 +64,7 @@ public class Provider implements Runnable{
 
         imageScreenShot = new ImageScreenShot(this.getRmi(),login);
         new Thread(imageScreenShot).start();
-        mouse = new Mouse(login,getRmi());
+        mouse = new Mouse(login,shareMode,getRmi());
         new Thread(mouse).start();
 
     }
@@ -94,5 +95,14 @@ public class Provider implements Runnable{
 
     public SharingPicture getRmi() {
         return rmi;
+    }
+
+    public boolean isShareMode() {
+        return shareMode;
+    }
+
+    public void setShareMode(boolean shareMode) {
+        this.shareMode = shareMode;
+        mouse.setShareMode(shareMode);
     }
 }
