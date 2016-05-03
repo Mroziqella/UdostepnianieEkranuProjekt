@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.mroziqella.domain.Room;
-import pl.mroziqella.domain.User;
 import pl.mroziqella.service.RoomService;
 import pl.mroziqella.service.UserService;
 
@@ -56,11 +55,11 @@ public class RoomController {
         if(!roomService.save(newRoom)){
             result.reject("nameRoom", messageSource.getMessage("validation.addRoom.roomName.label",null,locale));
         }
-        logger.debug("======================================================================================== \n"+result.getFieldError());
+
         if (result.getErrorCount()>0) {
             return "addRoom";
         }
-        model.addAttribute("info", new String("Pokój " + newRoom.getRoomName() + " zarejestrowano przez "+ name+ "\n Hasło "+ newRoom.getRoomPassword()));
+        model.addAttribute("info", new String("Pokój: " + newRoom.getRoomName() + "<br/>zarejestrowano przez: "+ name+ "<br/>Hasło: "+ newRoom.getRoomPassword()));
         return "info";
     }
 }

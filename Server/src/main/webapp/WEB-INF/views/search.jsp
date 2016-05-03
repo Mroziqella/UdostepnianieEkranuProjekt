@@ -39,10 +39,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <h1 class="text-center"><strong><spring:message code="page.title.label"/> </strong><br/>
-                        <small><spring:message code="registerPage.register.label"/>
-                        </small>
-                    </h1>
+                        <h1 class="text-center"><strong><spring:message code="page.title.label"/> </strong><br/>
+                            <small><spring:message code="search.room.label"/>
+                            </small>
+                        </h1>
                 </div>
                 <div class="row">
                     <div class="col-md-12"><br/><br/></div>
@@ -50,17 +50,24 @@
                 <div class="row">
                     <div class="col-md-12 ">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-5">
-                               <br/>
+                            <div class="col-md-6 col-md-offset-4">
+                                <p class="lead"><b><spring:message code="search.room.label"/></b></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4" >
-                                <p>Witaj na stronie!!!</p>
-                                <a href="<spring:url value="/login"/>" class="btn btn-info" role="button">Logowanie</a><br/><br/>
-                                <a href="<spring:url value="/register"/>" class="btn btn-info" role="button">Rejestracja</a><br/><br/>
-                                <a href="<spring:url value="/room/add"/>" class="btn btn-info" role="button">Dodaj pokój</a><br/><br/>
-                                <a href="<spring:url value="/image"/>" class="btn btn-info" role="button">Przejdź do transmisji</a><br/><br/>
+                                <form:form >
+                                    <form:errors path="*" cssClass="alert alert-danger" element="div"></form:errors>
+                                    <div class="form-group">
+                                        <spring:message code="search.roomName.label" var="nameRoom"/>
+                                        <label for="inputLogin">${nameRoom}</label>
+                                        <input type="text" class="form-control" id="inputLogin" name="roomName" placeholder="${nameRoom}"/>
+
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-default"><spring:message code="search.search.label"/>!</button>
+                                </form:form>
                             </div>
                         </div>
                     </div>
