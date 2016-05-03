@@ -2,11 +2,10 @@ package pl.mroziqella.domain;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * Created by Kamil on 25/03/2016.
@@ -22,7 +21,15 @@ public class User {
     private String password2;
     @Email(message = "{validation.register.email.label}")
     private String eMail;
+    private short enabled;
 
+    public short getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(short enabled) {
+        this.enabled = enabled;
+    }
 
     public String getPassword2() {
         return password2;

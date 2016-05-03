@@ -2,6 +2,7 @@ package pl.mroziqella.repository.server;
 
 
 import org.springframework.stereotype.Service;
+import pl.mroziqella.domain.Room;
 import pl.mroziqella.inte.Image;
 import pl.mroziqella.domain.User;
 import pl.mroziqella.exception.ImageNotFound;
@@ -127,4 +128,29 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
         return false;
     }
 
+    @Override
+    public boolean isRoom(String login, String password) throws RemoteException {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myDatabase");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+
+        Room room = (Room) entityManager.find(Room.class, login);
+        try {
+            entityManager.getTransaction().commit();
+        } catch (javax.persistence.RollbackException e) {
+            return false;
+        }
+
+        entityManager.close();
+        entityManagerFactory.close();
+        if (room != null && room.getRoomPassword().equals(password)) {
+            imageData.put(login, null);
+            mouseData.put(login,new MouseInfo());
+            return true;
+        }
+
+        return false;
+    }
 }

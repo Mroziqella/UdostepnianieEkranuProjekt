@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService{
     public List<User> userList() {
         return null;
     }
+
+    @Override
+    public User getUser(String login) {
+        return userRepository.getUser(login);
+    }
 }

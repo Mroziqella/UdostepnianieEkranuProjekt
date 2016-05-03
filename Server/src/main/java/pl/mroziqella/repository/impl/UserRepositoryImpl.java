@@ -44,5 +44,26 @@ public class UserRepositoryImpl implements UserRepository {
         return true;
 
     }
+    @Override
+    public User getUser(String login){
+        User user;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myDatabase");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+
+
+        user = (User) entityManager.find(User.class, login);
+        try {
+            entityManager.getTransaction().commit();
+        } catch (javax.persistence.RollbackException e) {
+            return null;
+        }
+
+        entityManager.close();
+        entityManagerFactory.close();
+        return user;
+
+    }
 
 }

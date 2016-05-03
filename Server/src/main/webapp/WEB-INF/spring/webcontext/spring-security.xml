@@ -10,7 +10,8 @@
 
 
     <security:http auto-config='true'>
-        <security:intercept-url pattern="/image/**" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/image/**" access="ROLE_USER,ROLE_ADMIN" />
+        <security:intercept-url pattern="/room/**" access="ROLE_USER,ROLE_ADMIN" />
         <security:form-login login-page="/login" default-target-url="/" />
         <security:logout logout-success-url="/logout" />
 
@@ -31,7 +32,7 @@
                                users-by-username-query=
                                        "select login,password,enabled  from uzytkownik where login=?"
                                authorities-by-username-query=
-                                       "select login, rola from uzytkownik where login =?  " />
+                                       "select login, role from rola where login =?  " />
         </security:authentication-provider>
     </security:authentication-manager>
 

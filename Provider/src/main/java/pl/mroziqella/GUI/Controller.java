@@ -107,7 +107,7 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
             try {
-                if (provider.getRmi().isUser(login.getText(), password.getText())) {
+                if (provider.getRmi().isRoom(login.getText(), password.getText())) {
                     if (!display.getText().equals("Połączono")) {
                         display.setText("Połączono");
                         provider.setLogin(login.getText());

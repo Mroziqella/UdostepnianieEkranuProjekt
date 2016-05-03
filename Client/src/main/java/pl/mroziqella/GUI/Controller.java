@@ -55,7 +55,7 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
 
-            if (clientRMI.getRmi().isUser(loginTextField.getText(), passwordTextField.getText())) {
+            if (clientRMI.getRmi().isRoom(loginTextField.getText(), passwordTextField.getText())) {
                 Thread.sleep(2000);
 
                 if (!statusLabel.getText().equals("Połączony")) {
@@ -101,14 +101,10 @@ public class Controller implements Initializable {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        System.out.println("sdafasdf");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         imageSizeInPercent = 1;
-
-
-
     }
 }

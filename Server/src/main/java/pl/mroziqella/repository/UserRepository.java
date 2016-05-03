@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface UserRepository {
     boolean save(User user);
+    User getUser(String login);
 }
