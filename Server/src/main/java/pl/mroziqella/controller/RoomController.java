@@ -62,4 +62,13 @@ public class RoomController {
         model.addAttribute("info", new String("Pokój: " + newRoom.getRoomName() + "<br/>zarejestrowano przez: "+ name+ "<br/>Hasło: "+ newRoom.getRoomPassword()));
         return "info";
     }
+
+    @RequestMapping("/allRooms")
+    public String getAllRooms(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        model.addAttribute("allRooms",roomService.getAllRoomsFromUser(name));
+        return "dispalyAllRooms";
+
+    }
 }

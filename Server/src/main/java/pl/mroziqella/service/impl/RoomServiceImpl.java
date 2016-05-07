@@ -6,6 +6,8 @@ import pl.mroziqella.domain.Room;
 import pl.mroziqella.repository.RoomRepository;
 import pl.mroziqella.service.RoomService;
 
+import java.util.ArrayList;
+
 /**
  * Created by Kamil on 03/05/2016.
  */
@@ -17,5 +19,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public boolean save(Room room) {
         return roomRepository.save(room);
+    }
+
+    @Override
+    public ArrayList<Room> getAllRoomsFromUser(String userName) {
+        return roomRepository.getAllRoomsFromUser(userName);
     }
 }

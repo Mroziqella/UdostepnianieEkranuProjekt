@@ -11,4 +11,5 @@ public interface UserService {
     boolean save(User user);
     User getUser(String login);
     List<User> userList();
+
 }
