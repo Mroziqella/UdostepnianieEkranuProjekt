@@ -9,7 +9,12 @@ import pl.mroziqella.inte.*;
 import pl.mroziqella.inte.Image;
 import pl.mroziqella.inte.MouseInfo;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -17,7 +22,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.rmi.RemoteException;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +44,6 @@ public class ImageScreenShot implements Runnable {
     private double zoom=1;
     private SharingPicture rmi;
     private String login;
-    private Image image;
 
     /**
      * Tworzy obiekt robiacy i zrzuty ekranu
@@ -108,7 +114,7 @@ public class ImageScreenShot implements Runnable {
             this.screenCapture();
             try {
 
-                rmi.writeImageToServer(new Image(null,imageByteArray,null,zoom),login);
+                rmi.writeImageToServer(new Image(null,imageByteArray,null,zoom,screen.getHeight(),screen.getWidth()),login);
                 Thread.sleep(1000);
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -153,13 +159,30 @@ public class ImageScreenShot implements Runnable {
     private void convertToArray() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(screen, "jpg", baos);
-            baos.flush();
+           // ImageIO.write(screen, "jpg", baos);
+            //baos.flush();
+            writeJPG(screen,baos,0.1f);
             imageByteArray = baos.toByteArray();
             baos.close();
         } catch (IOException ex) {
             Logger.getLogger(ImageScreenShot.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public static void writeJPG(BufferedImage bufferedImage,
+            OutputStream outputStream, float quality) throws IOException
+    {
+        Iterator<ImageWriter> iterator =
+                ImageIO.getImageWritersByFormatName("jpg");
+        ImageWriter imageWriter = iterator.next();
+        ImageWriteParam imageWriteParam = imageWriter.getDefaultWriteParam();
+        imageWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        imageWriteParam.setCompressionQuality(quality);
+        ImageOutputStream imageOutputStream =
+                new MemoryCacheImageOutputStream(outputStream);
+        imageWriter.setOutput(imageOutputStream);
+        IIOImage iioimage = new IIOImage(bufferedImage, null, null);
+        imageWriter.write(null, iioimage, imageWriteParam);
+        imageOutputStream.flush();
     }
 
 }

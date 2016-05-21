@@ -78,7 +78,10 @@ public class Server extends UnicastRemoteObject implements SharingPicture{
 
     @Override
     public void writeImageToServer(Image image, String login) throws RemoteException {
+
+
         byte[] imageBase64=Base64.getEncoder().encode(image.getImage());
+
         image.setImageBase64(imageBase64);
         image.setTime(Calendar.getInstance());
         imageData.put(login, image);

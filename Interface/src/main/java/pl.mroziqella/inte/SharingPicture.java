@@ -13,4 +13,5 @@ public interface SharingPicture extends Remote {
     boolean isRoom(String login,String password) throws RemoteException;
     MouseInfo getMouseClick(String login) throws  RemoteException;
     void setMouseClick(String login,MouseInfo mouseInfo) throws RemoteException;
+
 }

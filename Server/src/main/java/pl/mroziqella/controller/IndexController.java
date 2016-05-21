@@ -1,12 +1,11 @@
 package pl.mroziqella.controller;
 
+import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.mroziqella.exception.ConnectExeception;
 import pl.mroziqella.exception.ImageNotFound;
 import pl.mroziqella.inte.SharingPicture;
@@ -23,10 +22,12 @@ public class IndexController {
 
     @Autowired
     private ShareService shareService;
+    public static Server server;
+
 
     public IndexController() {
         try {
-            Server server = new Server();
+            server = new Server();
             server.start(2000, "server");
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -49,8 +50,7 @@ public class IndexController {
         model.addAttribute("user", user);
         return "displayImage";
     }
-
-
+//iVBORw0KGgoAAAANSUhEUgAAAKAAAABZCAIAAAA2MLirAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHtSURBVHhe7dExDgIBEMNA/v/po3HKSIgGsvKUbv16dJqDj3PwcQ4+zsHHOfg4Bx/n4OMcfJyDj/t08Ev/ikOFg+dxqHDwPA4VDp7HocLB8zhUfDmYql/gQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVCLLwfrf3CocPA8DhUOnsehwsHzOFQ4eB6Hik8Ha5SDj3PwcQ4+zsHHOfg4Bx/n4OMcfJyDT3ueNy+iYHphpeKjAAAAAElFTkSuQmCC
     @RequestMapping(value = "/image/picture/{user}", method = RequestMethod.GET)
     public @ResponseBody String getImage(@PathVariable String user) {
         try {

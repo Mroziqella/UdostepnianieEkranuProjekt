@@ -14,13 +14,23 @@ public class Image implements Serializable {
     private byte[] image;
     private byte[] imageBase64;
     private double zoom;
+    private int x;
+    private int y;
     private Calendar time;
 
-    public Image(Calendar time, byte[] image, byte[] imageBase64, double zoom) {
+
+    public Image(Calendar time, byte[] image, byte[] imageBase64, double zoom,int sizeX, int sizeY) {
         this.time = time;
         this.image = image;
         this.imageBase64 = imageBase64;
         this.zoom = zoom;
+        this.x=sizeX;
+        this.y=sizeY;
+    }
+
+    public int[] getSize() {
+        int[] tab = {x,y};
+        return tab;
     }
 
     public byte[] getImageBase64() {
