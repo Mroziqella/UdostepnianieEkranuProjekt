@@ -113,9 +113,8 @@ public class ImageScreenShot implements Runnable {
         while (screenRun) {
             this.screenCapture();
             try {
-
                 rmi.writeImageToServer(new Image(null,imageByteArray,null,zoom,screen.getHeight(),screen.getWidth()),login);
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (RemoteException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

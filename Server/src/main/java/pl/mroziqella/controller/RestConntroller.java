@@ -49,7 +49,8 @@ public class RestConntroller {
 
         logger.info("wyslano! x:"+coord.getX()+" y:"+coord.getY());
         Coord coord1 = coord;
-        Server.mouseData.put(loginRoom,new MouseInfo(coord.getX(),coord.getY()));
+        double zoom = Server.imageData.get(loginRoom).getZoom();
+        Server.mouseData.put(loginRoom,new MouseInfo((int)(coord.getX()*zoom),(int)(coord.getY()*zoom)));
 
         return coord1;
     }
