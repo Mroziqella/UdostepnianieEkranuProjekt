@@ -1,14 +1,10 @@
 package pl.mroziqella.controller;
 
-import org.apache.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.mroziqella.exception.ConnectExeception;
 import pl.mroziqella.exception.ImageNotFound;
-import pl.mroziqella.inte.SharingPicture;
 import pl.mroziqella.repository.server.Server;
 import pl.mroziqella.service.ShareService;
 

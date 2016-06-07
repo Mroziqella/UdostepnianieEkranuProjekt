@@ -31,7 +31,7 @@
       </AnchorPane>
    </top>
    <center>
-      <Pane style="-fx-background-color: #5c5461;" BorderPane.alignment="CENTER">
+      <Pane style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="connectButton" layoutX="119.0" layoutY="168.0" mnemonicParsing="false" text="Połącz" />
             <TextField fx:id="login" layoutX="57.0" layoutY="70.0" />

@@ -2,6 +2,7 @@ package pl.mroziqella.repository.impl;
 
 
 import org.springframework.stereotype.Repository;
+import pl.mroziqella.domain.Role;
 import pl.mroziqella.domain.User;
 import pl.mroziqella.repository.UserRepository;
 
@@ -27,8 +28,13 @@ public class UserRepositoryImpl implements UserRepository {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
-
+        user.setEnabled((short) 1);
         entityManager.persist(user);
+        Role role = new Role();
+        role.setUser(user);
+        role.setRole("ROLE_USER");
+
+        entityManager.persist(role);
 
         try{
         entityManager.getTransaction().commit();

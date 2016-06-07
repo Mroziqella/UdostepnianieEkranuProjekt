@@ -13,7 +13,7 @@
 
 ">
     <context:component-scan base-package="pl.mroziqella"/>
-
+    <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:annotation-driven  enable-matrix-variables="true" validator="validator"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>

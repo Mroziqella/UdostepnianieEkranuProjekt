@@ -1,92 +1,103 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Kamil
-  Date: 30/03/2016
-  Time: 12:41
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%
-    response.setCharacterEncoding("UTF-8");
-    request.setCharacterEncoding("UTF-8");
-%>
-
-<!DOCTYPE html>
-<html lang="pl_PL">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" pageEncoding="utf-8" %>
+<!doctype html>
+<html class="no-js" lang="" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rejestracja</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <style>
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.42857143;
-            background-color: darkslategray;
-            color: #ffa62a;
-        }
-    </style>
 
+    <link href="<c:url value="../../resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="../../resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"  type="text/css">
+    <link href="<c:url value="../../resources/css/main.css"/>" rel="stylesheet"  type="text/css">
+    <!-- Custom styles for this template -->
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<div id="page">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                        <h1 class="text-center"><strong><spring:message code="page.title.label"/> </strong><br/>
-                            <small><spring:message code="search.room.label"/>
-                            </small>
-                        </h1>
-                </div>
-                <div class="row">
-                    <div class="col-md-12"><br/><br/></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 ">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-4">
-                                <p class="lead"><b><spring:message code="search.room.label"/></b></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4" >
-                                <form:form >
-                                    <form:errors path="*" cssClass="alert alert-danger" element="div"></form:errors>
-                                    <div class="form-group">
-                                        <spring:message code="search.roomName.label" var="nameRoom"/>
-                                        <label for="inputLogin">${nameRoom}</label>
-                                        <input type="text" class="form-control" id="inputLogin" name="roomName" placeholder="${nameRoom}"/>
+<nav class="navbar navbar-fixed-top">
+    <div class="container menu">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">ShareALL</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="<spring:url value="/room/add"/>">Dodaj pokój</a></li>
+                <li><a href="<spring:url value="/image"/>">Przejdź do transmisji</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<spring:url value="/login"/>">Logowanie</a></li>
+                <li><a href="<spring:url value="/register"/>">Rejestracja</a></li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
 
 
-                                    </div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
 
-                                    <button type="submit" class="btn btn-default"><spring:message code="search.search.label"/>!</button>
-                                </form:form>
-                            </div>
-                        </div>
+<div class="container">
+    <div class="posision-login">
+        <form:form class="form-horizontal col-md-6 col-md-offset-3">
+            <form:errors path="*" cssClass="alert alert-danger" element="div"></form:errors>
+            <fieldset>
+                <!-- Form Name -->
+
+                <legend class="col-md-offset-3 col-md-6">Przejdź dp transmisji</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <spring:message code="search.roomName.label" var="nameRoom"/>
+                    <label class="col-md-4 control-label" for="textinput">${nameRoom}</label>
+                    <div class="col-md-5">
+                        <input id="textinput" name="roomName" type="text" placeholder="${nameRoom}"
+                               class="form-control input-md">
+
                     </div>
                 </div>
 
-            </div>
-            <div class="col-md-6">
-                <!--<img src="https://pixabay.com/static/uploads/photo/2014/12/22/19/59/macbook-577758_960_720.jpg" >-->
-            </div>
-        </div>
+                <!--&lt;!&ndash; Password input&ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label" for="passwordinput">Hasło pokoju</label>-->
+                    <!--<div class="col-md-5 ">-->
+                        <!--<input id="passwordinput" name="passwordinput" type="password" placeholder="Podaj hasło pokoju"-->
+                               <!--class="form-control input-md">-->
+
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-12 col-md-offset-4">
+                        <button type="submit" id="register" name="singlebutton" class="btn btn-primary">Połącz się!</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form:form>
+
 
     </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
 
+</div>
+<footer class="navbar-fixed-bottom">
+    <p class="container">&copy; Company 2016</p>
+</footer>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+<script src="js/vendor/bootstrap.min.js"></script>
+
+<script src="js/main.js"></script>
 </body>
 </html>

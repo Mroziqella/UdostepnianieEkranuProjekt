@@ -167,8 +167,15 @@ public class ImageScreenShot implements Runnable {
             Logger.getLogger(ImageScreenShot.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void writeJPG(BufferedImage bufferedImage,
-            OutputStream outputStream, float quality) throws IOException
+
+    /**
+     * Zapis obrazu do JPG
+     * @param bufferedImage
+     * @param outputStream
+     * @param quality
+     * @throws IOException
+     */
+    public static void writeJPG(BufferedImage bufferedImage, OutputStream outputStream, float quality) throws IOException
     {
         Iterator<ImageWriter> iterator =
                 ImageIO.getImageWritersByFormatName("jpg");
