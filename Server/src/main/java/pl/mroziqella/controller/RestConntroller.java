@@ -23,8 +23,11 @@ import java.rmi.RemoteException;
 public class RestConntroller {
 
     private static final Logger logger = Logger.getLogger(RestConntroller.class.getName());
+    /**
+     * Sprawdza czy podany pokoj istnieje
+     */
     @RequestMapping(value = "/login/{loginRoom}",method = RequestMethod.GET)
-    public boolean isUser(@PathVariable String loginRoom,@RequestParam String password){
+    public boolean isRoom(@PathVariable String loginRoom,@RequestParam String password){
 
         try {
             logger.info("Zalogowano!");

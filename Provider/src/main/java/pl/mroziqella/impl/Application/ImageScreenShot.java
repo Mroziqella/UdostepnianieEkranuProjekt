@@ -35,7 +35,6 @@ public class ImageScreenShot implements Runnable {
 
     private byte[] imageByteArray;
     private Robot robot;
-    private Thread thread;
     private Dimension dimension;
     private Rectangle rectangle;
     private BufferedImage screen;
@@ -62,13 +61,6 @@ public class ImageScreenShot implements Runnable {
 
 
     /**
-     * Robienie zrzutow uruchomione
-     */
-    public void screenRunStart() {
-        this.screenRun = true;
-    }
-
-    /**
      * Robienie zrzutow wstrzymane
      */
     public void screenRunStop() {
@@ -85,24 +77,6 @@ public class ImageScreenShot implements Runnable {
         zoom=100.0/qualityProcent;
     }
 
-    /**
-     * Udostępnia tablicę która przechowuje obraz
-     *
-     * @return tablica z obrazem
-     */
-    public byte[] getImageByteArray() {
-        return imageByteArray;
-    }
-
-    /**
-     * Uruchamia wątek tworzency zrzuty ekranu
-     *
-     * @throws AWTException
-     */
-    public void startThreadScreen() throws AWTException {
-        thread = new Thread(this);
-        thread.start();
-    }
 
     /**
      * Watek tworzacy zrzuty ekranu
@@ -120,7 +94,6 @@ public class ImageScreenShot implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
 
         }
 

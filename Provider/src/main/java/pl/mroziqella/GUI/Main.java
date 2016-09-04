@@ -10,6 +10,7 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
     private static Stage primaryStage;
+
     @Override
     public void start(final Stage primaryStage) throws Exception{
         Main.primaryStage=primaryStage;

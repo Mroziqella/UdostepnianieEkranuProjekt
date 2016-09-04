@@ -87,6 +87,7 @@ public class Mouse implements Runnable {
 
     }
 
+
     public void setShareMode(boolean shareMode) {
         this.shareMode = shareMode;
     }

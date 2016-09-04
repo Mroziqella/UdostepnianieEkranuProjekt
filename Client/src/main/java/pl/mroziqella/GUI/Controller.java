@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.WindowEvent;
 import pl.mroziqella.RMIConnect.ThreadImage;
 import pl.mroziqella.inte.MouseInfo;
 
@@ -90,6 +91,17 @@ public class Controller implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Main.getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                try {
+                    clientRMI.stopThread();
+                } catch (NullPointerException e) {
+
+                }
+
+            }
+        });
     }
 
 

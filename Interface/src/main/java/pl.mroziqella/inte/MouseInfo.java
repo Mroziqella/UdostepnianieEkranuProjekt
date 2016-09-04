@@ -5,6 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Kamil on 28/04/2016.
  */
+
+/**
+ * Klasa przechowujace parametry myszy
+ */
 public class MouseInfo implements Serializable{
     private int x=0;
     private int y=0;

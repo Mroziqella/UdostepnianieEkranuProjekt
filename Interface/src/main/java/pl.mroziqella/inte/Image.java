@@ -9,6 +9,10 @@ import java.util.Calendar;
 /**
  * Created by Kamil on 29/03/2016.
  */
+
+/**
+ * Klasa przechowujaca obraz z podstawowymi parametrami
+ */
 public class Image implements Serializable {
 
     private byte[] image;
@@ -42,7 +46,6 @@ public class Image implements Serializable {
     }
 
     public byte[] getImage() {
-        //byte[] encoded = Base64.getEncoder().encode(image);
         return image;
     }
 

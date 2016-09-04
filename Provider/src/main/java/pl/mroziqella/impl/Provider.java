@@ -97,10 +97,10 @@ public class Provider implements Runnable{
         return rmi;
     }
 
-    public boolean isShareMode() {
-        return shareMode;
-    }
-
+    /**
+     * Ustawia flage pozwalajaca na zdalne sterowanie
+     * @param shareMode
+     */
     public void setShareMode(boolean shareMode) {
         this.shareMode = shareMode;
         mouse.setShareMode(shareMode);

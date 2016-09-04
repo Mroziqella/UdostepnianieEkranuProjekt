@@ -20,7 +20,9 @@ public class IndexController {
     private ShareService shareService;
     public static Server server;
 
-
+    /**
+     * Uruchamia serwer RMI
+     */
     public IndexController() {
         try {
             server = new Server();
@@ -41,16 +43,38 @@ public class IndexController {
         return "login";
     }
 
-    @RequestMapping("/image/{user}")
-    public String image(@PathVariable String user, Model model) {
-        model.addAttribute("user", user);
+    /**
+     * Wyswietla strone transmisji
+     * @param room
+     * @param model
+     * @return
+     */
+    @RequestMapping("/image/{room}")
+    public String image(@PathVariable String room,@RequestParam("password")String password, Model model) {
+        try {
+            if(!server.isRoom(room,password)){
+                model.addAttribute("info","Brak dostepu");
+                return "info";
+            }
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("user", room);
         return "displayImage";
     }
+
+    /**
+     * Zwraca obraz do transmisji
+     * @param room
+     * @return
+     */
+
 //iVBORw0KGgoAAAANSUhEUgAAAKAAAABZCAIAAAA2MLirAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHtSURBVHhe7dExDgIBEMNA/v/po3HKSIgGsvKUbv16dJqDj3PwcQ4+zsHHOfg4Bx/n4OMcfJyDj/t08Ev/ikOFg+dxqHDwPA4VDp7HocLB8zhUfDmYql/gQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVALB+/hQVCLLwfrf3CocPA8DhUOnsehwsHzOFQ4eB6Hik8Ha5SDj3PwcQ4+zsHHOfg4Bx/n4OMcfJyDT3ueNy+iYHphpeKjAAAAAElFTkSuQmCC
-    @RequestMapping(value = "/image/picture/{user}", method = RequestMethod.GET)
-    public @ResponseBody String getImage(@PathVariable String user) {
+    @RequestMapping(value = "/image/picture/{room}", method = RequestMethod.GET)
+    public @ResponseBody String getImage(@PathVariable String room) {
         try {
-            return new String(shareService.getImageBase64(user));
+            return new String(shareService.getImageBase64(room));
         } catch (ImageNotFound e) {
             return new String("error");
         }

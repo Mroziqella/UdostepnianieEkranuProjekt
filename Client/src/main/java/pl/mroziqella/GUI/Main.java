@@ -21,10 +21,10 @@ public class Main extends Application {
 
     }
 
+
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
-
     public static void main(String[] args) {
         launch(args);
 

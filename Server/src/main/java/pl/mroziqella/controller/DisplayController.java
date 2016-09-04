@@ -29,8 +29,8 @@ public class DisplayController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String searchTransmisnionPOST(@RequestParam("roomName")String roomName)
+    public String searchTransmisnionPOST(@RequestParam("roomName")String roomName,@RequestParam("password")String password)
     {
-        return "redirect:/image/"+roomName;
+        return "redirect:/image/"+roomName+"?password="+password;
     }
 }

@@ -55,7 +55,6 @@ public class Client {
         System.out.println("Conencted");
     }
 
-    //##########################TEST##############################
 
     /**
      * Daje dostep do metod udostepnionych przez RMI
